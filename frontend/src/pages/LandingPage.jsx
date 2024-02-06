@@ -7,10 +7,35 @@ import {
 	TextField,
 	Typography,
 } from "@mui/material";
+import { useMutation } from "react-query";
 import textfieldStyles from "../styling/TextFieldStyling";
+import { getResponse } from "../api/responseHandler";
 
 export const LandingPage = () => {
 	const [bookCategory, setBookCategory] = useState("");
+	const [bookDescription, setBookDescription] = useState("");
+
+	const getResponseReq = useMutation(getResponse, {
+		onSuccess: (returnData) => {
+			console.log("Post Made!", returnData);
+		},
+		onError: (error) => {
+			console.log(error);
+			toast.error("Post Creation Failed", {
+				position: "bottom-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: false,
+			});
+		},
+	});
+
+	const handleGetResponse = () => {
+		getResponseReq.mutate({ bookCategory, bookDescription });
+	};
+
 	return (
 		<Box
 			sx={{
@@ -93,7 +118,7 @@ export const LandingPage = () => {
 				<TextField
 					multiline
 					label="Book Description"
-					onChange={(e) => setBookCategory(e.target.value)}
+					onChange={(e) => setBookDescription(e.target.value)}
 					inputProps={{ maxLength: 1000 }}
 					rows={5}
 					sx={textfieldStyles}
@@ -101,6 +126,7 @@ export const LandingPage = () => {
 			</Box>
 			<Button
 				variant="contained"
+				onClick={handleGetResponse}
 				sx={{
 					mt: "2vh",
 					color: "#ba74e0",
