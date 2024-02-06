@@ -5,6 +5,14 @@ export const theme = createTheme({
 		defaultText: {
 			main: "#000000",
 		},
+		purple: {
+			main: "#BA74E0",
+			contrastText: "#fff",
+		},
+		lightPurple: {
+			main: "#bbb1cc",
+			contrastText: "#fff",
+		},
 		dark: {
 			main: "#232424",
 			contrastText: "#fff",
