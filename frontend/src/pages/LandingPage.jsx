@@ -12,6 +12,7 @@ import textfieldStyles from "../styling/TextFieldStyling";
 import { getResponse } from "../api/responseHandler";
 
 export const LandingPage = () => {
+	const [currentMood, setCurrentMood] = useState("");
 	const [bookCategory, setBookCategory] = useState("");
 	const [bookDescription, setBookDescription] = useState("");
 
@@ -33,7 +34,7 @@ export const LandingPage = () => {
 	});
 
 	const handleGetResponse = () => {
-		getResponseReq.mutate({ bookCategory, bookDescription });
+		getResponseReq.mutate({ currentMood, bookCategory, bookDescription });
 	};
 
 	return (
@@ -95,6 +96,21 @@ export const LandingPage = () => {
 					bgcolor: "#21252d",
 				}}
 			>
+				<Typography
+					variant="h5"
+					sx={(theme) => ({ color: theme.palette.white.main, mb: "1vh" })}
+				>
+					How are you feeling right now?
+				</Typography>
+				<TextField
+					multiline
+					label="Current Mood"
+					onChange={(e) => setCurrentMood(e.target.value)}
+					inputProps={{ maxLength: 100 }}
+					sx={textfieldStyles}
+				/>
+				<Box sx={{ borderBottom: "1px solid #42404f", mt: "3vh", mb: "3vh" }} />
+
 				<Typography
 					variant="h5"
 					sx={(theme) => ({ color: theme.palette.white.main, mb: "1vh" })}
